@@ -1,0 +1,61 @@
+#数据库连接属性配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url:  jdbc:mysql://localhost:3306/hospital?serverTimezone=Asia/Shanghai&useSSL=true
+    username: root
+    password: root
+
+#设置mybatis实体类别名
+mybatis:
+  type-aliases-package: com.yy.hospital.domain
+  configuration:
+    #自动映射带下划线列名为驼峰命名法属性名
+    map-underscore-to-camel-case: true
+        #设置服务器端口号
+        server:
+          port:8086
+
+#设置指定包的日志输出级别
+logging:
+  level:
+    com.newer.hospital.mapper: debug
+
+
+#security配置
+jackson:
+  servialization:
+  indent_output: true
+redis:
+  host: 127.0.0.1
+  port: 6379
+
+  #redis连接池配置
+  jedis:
+    pool:
+      min-idle: 0
+      max-idle: 8
+      max-active: 8
+      max-wait: -1ms
+
+    data:
+      mongodbdb:
+        uri: mongodb://127.0.0.1:27017/logs
+
+    #定义日志文件路径
+    logging:
+      file: logs/all.log
+      level:
+        org.springframework.security: info
+        com.yy.hospital.mapper: debug
+        com.yy.hospital.util: debug
+
+#jwt配置
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  route:
+    authentication:
+            path: /auth
+            refresh: /refresh
